@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パターン追加版・コントラスト比テスト</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .card {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            /* 検証用：白・黒が混ざった物件写真 */
+            background: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .white-bg-area {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        /* ==========================================
+           本番の基本スタイル（フォント：regular）
+           ========================================== */
+        .tag-feature {
+            font-size: 12px;
+            padding: 0 4px; /* 左右に4px */
+            font-weight: normal; /* レギュラー（標準の太さ） */
+            border-radius: 2px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        /* ------------------------------------------
+           【シチュエーションA】物件写真の上のラベル
+           ------------------------------------------ */
+        /* 1. 現在のデザイン（#111111 の 60%透過 × 白文字） */
+        .image-bg-current {
+            background-color: rgba(17, 17, 17, 0.6); 
+            color: #ffffff;
+        }
+
+        /* 追加：#000000 の 40%透過 × 白文字 */
+        .image-bg-black-40 {
+            background-color: rgba(0, 0, 0, 0.4); 
+            color: #ffffff;
+        }
+
+        /* 調整案A-1：見た目は変えず「不透明」にする */
+        .image-bg-solid {
+            background-color: #0b0b0b; 
+            color: #ffffff;
+        }
+
+
+        /* ------------------------------------------
+           【シチュエーションB】普通の白背景に出すラベル
+           ------------------------------------------ */
+        /* 2. 現在のデザイン（背景#F0F0F0 / テキスト#505050） */
+        .white-bg-current {
+            background-color: #F0F0F0;
+            color: #505050;
+        }
+
+        /* 追加：背景#F0F0F0 / テキスト#6D6D6D */
+        .white-bg-6d6d6d {
+            background-color: #F0F0F0;
+            color: #6D6D6D;
+        }
+
+        /* 調整案B-1：テキストを「#444444」に濃くする */
+        .white-bg-fix {
+            background-color: #F0F0F0;
+            color: #444444; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>コントラスト比 パターン追加検証</h2>
+    <p>GASで更新後、シークレットウィンドウでLighthouse（Accessibility）を計測してください。</p>
+    <hr>
+
+    <h2>【シチュエーションA】物件写真の上のラベル</h2>
+    
+    <h3>1. 現在のデザイン（#111111 60%透過 / 白文字）</h3>
+    <div class="card">
+        <span class="tag-feature image-bg-current">リノベーション＆リフォーム</span>
+    </div>
+
+    <h3>【追加】#000000 40%透過 / 白文字</h3>
+    <p>黒の40%透過にした場合、Lighthouseの判定がどう変わるか検証します。</p>
+    <div class="card">
+        <span class="tag-feature image-bg-black-40">リノベーション＆リフォーム</span>
+    </div>
+
+    <h3>調整案A-1：見た目は変えず「不透明（ソリッド）」にする</h3>
+    <div class="card">
+        <span class="tag-feature image-bg-solid">リノベーション＆リフォーム</span>
+    </div>
+
+    <hr>
+
+    <h2>【シチュエーションB】普通の白背景に出すラベル</h2>
+
+    <h3>2. 現在のデザイン（背景#F0F0F0 / テキスト#505050）</h3>
+    <div class="white-bg-area">
+        <span class="tag-feature white-bg-current">リノベーション＆リフォーム</span>
+    </div>
+
+    <h3>【追加】テキストカラーを「#6D6D6D」にした場合</h3>
+    <p>ご指定の明るいグレー文字（#6D6D6D）の判定をチェックします。</p>
+    <div class="white-bg-area">
+        <span class="tag-feature white-bg-6d6d6d">リノベーション＆リフォーム</span>
+    </div>
+
+    <h3>調整案B-1：テキストカラーを「#444444」に濃くする</h3>
+    <div class="white-bg-area">
+        <span class="tag-feature white-bg-fix">リノベーション＆リフォーム</span>
+    </div>
+</div>
+
+</body>
+</html>
